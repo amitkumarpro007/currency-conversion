@@ -1,0 +1,238 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Currency Convertion Project",
+    "description": "Currency Convertion Api's",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "basePath": "/api",
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "securityDefinitions": {
+    "Bearer": {
+      "name": "Authorization",
+      "in": "header",
+      "type": "apiKey",
+      "description": "JWT Authorization header"
+    }
+  },
+  "paths": {
+    "/calculate": {
+      "post": {
+        "tags": ["CALCULATE"],
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "name": "login",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/calculateSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": ["AUTHENTICATION"],
+        "parameters": [
+          {
+            "name": "login",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/loginSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "tags": ["AUTHENTICATION"],
+        "parameters": [
+          {
+            "name": "login",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/registerSchema"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a JSON response with submitted Aman form details.",
+            "schema": { "$ref": "#/definitions/response" }
+          },
+          "404": {
+            "description": "Validation failure.",
+            "schema": {
+              "$ref": "#/definitions/validationError"
+            }
+          },
+          "default": {
+            "description": "Unexpected error.",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "error": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "details": { "type": "string" },
+        "message": { "type": "string" }
+      }
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "validationError": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "message": { "type": "string" }
+      }
+    },
+    "calculateSchema": {
+      "properties": {
+        "item": {
+          "type": "string",
+          "default": "pen",
+          "required": true
+        },
+        "category": {
+          "type": "string",
+          "default": "groceries",
+          "required": true
+        },
+        "totalAmount": {
+          "type": "number",
+          "default": "300",
+          "required": true
+        },
+        "userType": {
+          "type": "string",
+          "default": "affiliate",
+          "required": true
+        },
+        "customerTenure": {
+          "type": "string",
+          "default": "2",
+          "required": true
+        },
+        "originalCurrency": {
+          "type": "string",
+          "default": "INR",
+          "required": true
+        },
+        "targetCurrency": {
+          "type": "string",
+          "default": "USD",
+          "required": true
+        }
+      }
+    },
+    "loginSchema": {
+      "properties": {
+        "userName": {
+          "type": "string",
+          "required": true
+        },
+        "password": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "registerSchema": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "default": "sankar",
+          "required": true
+        },
+        "mobileNo": {
+          "type": "string",
+          "default": "9999999999",
+          "required": true
+        },
+        "email": {
+          "type": "number",
+          "default": "test@gmail.com",
+          "required": true
+        },
+        "password": {
+          "type": "string",
+          "default": "12334444",
+          "required": true
+        },
+        "confirmPassword": {
+          "type": "string",
+          "default": "12334444",
+          "required": true
+        },
+        "userType": {
+          "type": "string",
+          "default": "customer",
+          "required": true
+        },
+        "gender": {
+          "type": "string",
+          "default": "male",
+          "required": true
+        }
+      }
+    }
+  }
+}
